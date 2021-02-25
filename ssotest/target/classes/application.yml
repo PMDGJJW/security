@@ -1,0 +1,7 @@
+server:
+  port: 8085
+jwt:
+  config:
+    key: EFGFlight       #token��Կ
+    exp: 1296000000    #����ʱ��,һ����
+    prefix: EFGFlight_

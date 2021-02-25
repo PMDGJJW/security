@@ -1,0 +1,7 @@
+server:
+  port: 8085
+jwt:
+  config:
+    key: EFGFlight       #token秘钥
+    exp: 1296000000    #过期时间,一分钟
+    prefix: EFGFlight_
