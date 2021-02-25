@@ -1,0 +1,11 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: efg-flight
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10102/eureka
+  instance:
+    prefer-ip-address: true

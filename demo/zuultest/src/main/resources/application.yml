@@ -1,0 +1,60 @@
+server:
+  port: 8089
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2-CLIENT-SESSION025
+ouath2-url: http://localhost:8085
+spring:
+  application:
+    name: efg-zuul
+security:
+  oauth2:
+    client:
+      client-id: EFGFlight
+      client-secret: 112233
+      user-authorization-uri: http://localhost:8085/oauth/authorize
+      access-token-uri: http://localhost:8085/oauth/token
+    resource:
+      jwt:
+        key-uri: http://localhost:8085/oauth/token_key
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10102/eureka
+  instance:
+    prefer-ip-address: true
+jwt:
+  config:
+    key: EFGFlight       #token秘钥
+    exp: 1296000000    #过期时间,一分钟
+    prefix: EFGFlight_
+zuul:
+  # 添加代理头
+  add-proxy-headers: true
+  # 敏感头信息（重要）
+  sensitive-headers:
+  host:
+    connect-timeout-millis: 16000 #HTTP连接超时大于Hystrix的超时时间
+    socket-timeout-millis: 60000   #socket超时
+  routes:
+    efg-flight:
+      path: /flight/**
+      serviceId: efg-flight
+
+
+ribbon:
+  eager-load: true
+  ReadTimeout: 60000
+  SockerTimeout: 6000
+  ConnectTimeout: 6000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 640000
